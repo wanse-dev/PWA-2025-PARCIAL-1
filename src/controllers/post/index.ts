@@ -62,7 +62,7 @@ const updatePost = async (req: Request, res: Response) => { // irá como PATCH, 
         const { title, content } = req.body;
         const post = await Post.findByIdAndUpdate(
             id,
-            { title, content },
+            { title, content, edited: true },
             { new: true }
         );
         if(!post){
@@ -109,7 +109,28 @@ const deletePost = async (req: Request, res: Response) => {
 
 const giveLike = async (req: Request, res: Response) => {
     try {
-        // to-do
+        const { postId } = req.params;
+        const { userId } = req.body;
+
+         const post = await Post.findByIdAndUpdate(
+            postId,
+            {
+                $addToSet: { "likes": userId } // el $addToSet verifica que no hayan usuarios duplicados
+            },
+            { new: true}
+         );
+         if (!post) {
+            res.status(404).json({
+                message: "Post not found",
+                error: true
+            });
+            return;
+         }
+         res.status(200).json({
+            message: "Like given",
+            data: post,
+            error: false
+        });
     } catch (error: any) {
         res.status(400).json({
             error: error.message
@@ -122,5 +143,6 @@ export {
     getPosts,
     getPostById,
     updatePost,
-    deletePost
+    deletePost,
+    giveLike
 };

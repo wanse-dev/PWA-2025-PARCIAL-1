@@ -22,9 +22,7 @@ const PostSchema = new Schema(
             type: String,
             required: true
         },
-        likes: {
-            likes: [{ type: Schema.Types.ObjectId, ref: "User" }] // se toma como referencia el id de cada usuario que dió like
-        },
+        likes: [{ type: Schema.Types.ObjectId, ref: "User" }], // se toma como referencia el id de cada usuario que dió like
         edited: {
             type: Boolean,
             required: true,
