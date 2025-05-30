@@ -20,7 +20,7 @@ const createPost = async (req: Request, res: Response) => {
 
 const getPosts = async (req: Request, res: Response) => {
     try{
-        const posts = await Post.find();
+        const posts = await Post.find().populate('author').populate('likes');
         res.status(200).json({
             message: "Posts obtained successfully",
             data: posts,
