@@ -73,7 +73,7 @@ const updatePost = async (req: Request, res: Response) => { // irá como PATCH, 
             return;
         }
         res.status(200).json({
-            message: "Post disabled successfully",
+            message: "Post updated successfully",
             data: post,
             error: false
         });
@@ -109,7 +109,7 @@ const deletePost = async (req: Request, res: Response) => {
 
 const giveLike = async (req: Request, res: Response) => {
     try {
-        const { postId } = req.params;
+        const postId = req.params.id;
         const { userId } = req.body;
 
          const post = await Post.findByIdAndUpdate(
