@@ -1,18 +1,18 @@
-import mongoose, { Schema, Document } from "mongoose";
-import User from "./user";
+import mongoose, { Schema, Document, Types } from "mongoose";
 
 interface Post extends Document {
-  author: User;
+  author: Types.ObjectId;
   title: string;
   content: string;
-  likes: User[]; // esto almacena todos los usuarios que dieron like en el post
+  likes: Types.ObjectId[]; // esto almacena todos los usuarios que dieron like en el post
   edited: boolean;
 }
 
 const PostSchema = new Schema(
     {
         author: {
-            type: User
+            type: Schema.Types.ObjectId,
+            ref: "User"
         },
         title: {
             type: String,
