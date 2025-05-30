@@ -5,7 +5,7 @@ interface Post extends Document {
   author: User;
   title: string;
   content: string;
-  likes: User[];
+  likes: User[]; // esto almacena todos los usuarios que dieron like en el post
   edited: boolean;
 }
 
@@ -23,7 +23,7 @@ const PostSchema = new Schema(
             required: true
         },
         likes: {
-            likes: [{ type: Schema.Types.ObjectId, ref: "User" }]
+            likes: [{ type: Schema.Types.ObjectId, ref: "User" }] // se toma como referencia el id de cada usuario que dió like
         },
         edited: {
             type: Boolean,
