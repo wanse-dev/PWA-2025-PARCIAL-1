@@ -112,10 +112,39 @@ const disableUser = async (req: Request, res: Response) => {
     }
 }
 
+const enableUser = async (req: Request, res: Response) => {
+    try{
+        const { id } = req.params;
+        const user = await User.findByIdAndUpdate(
+            id,
+            { isActive: true },
+            { new: true }
+        );
+        if(!user){
+            res.status(404).json({
+                message: "User not found",
+                error: true
+            });
+            return;
+        }
+        res.status(200).json({
+            message: "User enabled successfully",
+            data: user,
+            error: false
+        });
+
+    } catch(error: any){
+        res.status(400).json({
+            error: error.message
+        });
+    }
+}
+
 export {
     createUser,
     getUsers,
     getUserById,
     updateUser,
-    disableUser
+    disableUser,
+    enableUser
 };
