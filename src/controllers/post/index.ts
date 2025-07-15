@@ -56,13 +56,13 @@ const getPostById = async (req: Request, res: Response) => {
     }
 }
 
-const updatePost = async (req: Request, res: Response) => { // irá como PATCH, se modifica solo el title y content
+const updatePost = async (req: Request, res: Response) => { // irá como PATCH, se modifica solo el title, content y author
     try{
         const { id } = req.params;
-        const { title, content } = req.body;
+        const { title, content, author } = req.body;
         const post = await Post.findByIdAndUpdate(
             id,
-            { title, content, edited: true },
+            { title, content, author, edited: true },
             { new: true }
         );
         if(!post){
