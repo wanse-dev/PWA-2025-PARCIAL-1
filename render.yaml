@@ -1,0 +1,12 @@
+# render.yaml
+services:
+  - type: web
+    name: backend
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: MONGO_URI
+        value: tu_string_de_conexión
+      - key: NODE_ENV
+        value: production
